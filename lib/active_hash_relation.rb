@@ -26,7 +26,11 @@ module ActiveHashRelation
     end
   end
 
-  def apply_filters(resource, params, include_associations: false, model: nil)
+  #def apply_filters(resource, params, include_associations: false, model: nil)
+  # Hani added this, ruby 1.9.3 compatible (JRuby 1.7.20.1)
+  def apply_filters(resource, params, opts = {})
+    include_associations = opts[:include_associations] || false
+    model                = opts[:model]                || nil
     FilterApplier.new(
       resource,
       params,
