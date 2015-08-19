@@ -9,7 +9,12 @@ module ActiveHashRelation
 
     attr_reader :configuration
 
-    def initialize(resource, params, include_associations: true, model: nil)
+    #def initialize(resource, params, include_associations: true, model: nil)
+    # Hani added this, ruby 1.9.3 compatible (JRuby 1.7.20.1)
+    def initialize(resource, params, opts = {})
+      include_associations = opts[:include_associations] || true
+      model                = opts[:model]                || nil
+
       @configuration = Module.nesting.last.configuration
       @resource = resource
       @params = HashWithIndifferentAccess.new(params)
